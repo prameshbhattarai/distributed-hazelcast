@@ -3,11 +3,13 @@ package org.distributed;
 import org.distributed.application.AppA;
 import org.distributed.application.AppB;
 import org.distributed.application.AppC;
+import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.Arrays;
 
 
 public class Main {
@@ -29,6 +31,16 @@ public class Main {
         return new AppURLConfig(app, uri);
     }
 
+    private static void addShutdownHooks(HttpServer... servers) {
+        Arrays.stream(servers).forEach(server ->
+                Runtime.getRuntime().addShutdownHook(
+                new Thread(
+                        server::shutdownNow,
+                        "serverShutdown %s".formatted(server.getClass())
+                )
+        ));
+    }
+
     public static void main(String[] args) throws IOException, InterruptedException {
         var appA = createApplicationA();
         var appB = createApplicationB();
@@ -46,13 +58,7 @@ public class Main {
         serverC.getHttpHandler().setAllowEncodedSlash(true);
         serverC.start();
 
-        Runtime.getRuntime().addShutdownHook(
-                new Thread(
-                        serverC::shutdownNow,
-                        "serverShutdown"
-                )
-        );
-
+        addShutdownHooks(serverA, serverB, serverC);
         Thread.currentThread().join();
     }
 
