@@ -18,7 +18,7 @@ public class CacheConfig {
         if (hazelcastInstance == null) {
             logger.info("Initialize the hazelcast...");
 
-            // node A config
+            // hazelcast node A config
             var configA = new Config();
             configA.setClusterName(Setting.CACHE_GROUP);
             var networkConfigA = configA.getNetworkConfig();
@@ -28,7 +28,7 @@ public class CacheConfig {
             networkConfigA.setPort(5701);
             hazelcastInstance = Hazelcast.newHazelcastInstance(configA);
 
-            // node B config
+            // hazelcast node B config
             var configB = new Config();
             configB.setClusterName(Setting.CACHE_GROUP);
             var networkConfigB = configB.getNetworkConfig();
@@ -38,7 +38,7 @@ public class CacheConfig {
             networkConfigB.setPort(5702);
             hazelcastInstance = Hazelcast.newHazelcastInstance(configB);
 
-            // node C config
+            // hazelcast node C config
             var configC = new Config();
             configC.setClusterName(Setting.CACHE_GROUP);
             var networkConfigC = configC.getNetworkConfig();

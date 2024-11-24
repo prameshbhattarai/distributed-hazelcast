@@ -30,7 +30,7 @@ public class ServerAResource {
     @Path("/ping")
     public void ping(@Suspended AsyncResponse asyncResponse,
                      @Context ContainerRequest request) {
-        logger.info("serverA ping request received");
+        logger.info("ServerA:: ping request received");
 
         var futureResponse = new CompletableFuture<Response>();
         futureResponse.complete(Response.ok()
@@ -50,7 +50,7 @@ public class ServerAResource {
                            @PathParam("key") String key,
                            @PathParam("value") String value,
                            @Context ContainerRequest request) {
-        logger.info("ServerB:: add to cache request received");
+        logger.info("ServerA:: add to cache request received");
 
         var futureResponse = CompletableFuture.supplyAsync(() -> {
             if (key == null || key.isEmpty()) {
@@ -96,7 +96,7 @@ public class ServerAResource {
     public void getFromCache(@Suspended AsyncResponse asyncResponse,
                              @PathParam("key") String key,
                              @Context ContainerRequest request) {
-        logger.info("ServerB:: get from cache request received");
+        logger.info("ServerA:: get from cache request received");
 
         var futureResponse = CompletableFuture.supplyAsync(() -> {
             if (key == null || key.isEmpty()) {

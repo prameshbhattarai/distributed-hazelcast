@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 
-
 public class Main {
     private static final Logger logger = LogManager.getLogger(Main.class);
 

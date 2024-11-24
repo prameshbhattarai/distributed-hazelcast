@@ -30,7 +30,7 @@ public class ServerBResource {
     @Path("/ping")
     public void ping(@Suspended AsyncResponse asyncResponse,
                      @Context ContainerRequest request) {
-        logger.info("serverB ping request received");
+        logger.info("ServerB:: ping request received");
 
         var futureResponse = new CompletableFuture<Response>();
         futureResponse.complete(Response.ok()
