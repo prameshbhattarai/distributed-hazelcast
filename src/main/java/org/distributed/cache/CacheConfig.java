@@ -35,7 +35,7 @@ public class CacheConfig {
             networkConfigB.getJoin()
                     .getTcpIpConfig().setEnabled(true)
                     .addMember("127.0.0.1");
-            networkConfigB.setPort(5701);
+            networkConfigB.setPort(5702);
             hazelcastInstance = Hazelcast.newHazelcastInstance(configB);
 
             // node C config
@@ -45,7 +45,7 @@ public class CacheConfig {
             networkConfigC.getJoin()
                     .getTcpIpConfig().setEnabled(true)
                     .addMember("127.0.0.1");
-            networkConfigC.setPort(5701);
+            networkConfigC.setPort(5703);
             hazelcastInstance = Hazelcast.newHazelcastInstance(configC);
         }
         return hazelcastInstance;
@@ -62,5 +62,12 @@ public class CacheConfig {
                 Partition ID %s
                 Key %s
                 """.formatted(owner, owner.getAddress().getHost(), partition.getPartitionId(), key));
+    }
+
+    public static void cacheShutdown() {
+        if (hazelcastInstance != null) {
+            hazelcastInstance.shutdown();
+            logger.info("Hazelcast node has been shut down.");
+        }
     }
 }

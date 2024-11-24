@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.distributed.application.AppA;
 import org.distributed.application.AppB;
 import org.distributed.application.AppC;
+import org.distributed.cache.CacheConfig;
 import org.distributed.config.Setting;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -39,9 +40,14 @@ public class Main {
     private static void addShutdownHooks(HttpServer... servers) {
         Arrays.stream(servers).forEach(server ->
                 Runtime.getRuntime().addShutdownHook(
-                        new Thread(
-                                server::shutdownNow,
-                                "serverShutdown %s".formatted(server.getClass())
+                        new Thread(() -> {
+                            var cache = CacheConfig.getHazelcastInstance();
+                            if (cache != null) {
+                                cache.shutdown();
+                            }
+                            server.shutdown();
+                        },
+                        "serverShutdown %s".formatted(server.getClass())
                         )
                 ));
     }
