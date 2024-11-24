@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" shutdownHook="disable">
+    <Appenders>
+        <Console name="Console">
+            <JsonTemplateLayout eventTemplateUri="classpath:LogJsonLayout.json">
+                <EventTemplateAdditionalField key="serviceName" value="JerseyAsyncRest"/>
+            </JsonTemplateLayout>
+            <Filters>
+                <MarkerFilter marker="MAP_MESSAGE" onMatch="DENY" onMismatch="ACCEPT"/>
+            </Filters>
+        </Console>
+        <Console name="ConsoleMapMessage">
+            <JsonTemplateLayout eventTemplateUri="classpath:LogJsonLayoutMapMessage.json">
+                <EventTemplateAdditionalField key="serviceName" value="JerseyAsyncRest"/>
+            </JsonTemplateLayout>
+            <Filters>
+                <MarkerFilter marker="MAP_MESSAGE" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Console>
+        <Async name="AsyncConsole" includeLocation="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="ConsoleMapMessage"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="AsyncConsole"/>
+        </Root>
+    </Loggers>
+</Configuration>

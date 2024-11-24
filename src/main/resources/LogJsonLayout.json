@@ -1,0 +1,69 @@
+{
+  "@timestamp": {
+    "$resolver": "timestamp"
+  },
+  "message": {
+    "$resolver": "message"
+  },
+  "mdc": {
+    "$resolver": "mdc",
+    "flatten": true
+  },
+  "totalTimeForRequestInMs": {
+    "$resolver": "map",
+    "key": "totalTimeForRequestInMs"
+  },
+  "status": {
+    "$resolver": "map",
+    "key": "status"
+  },
+  "exception": {
+    "class": {
+      "$resolver": "exception",
+      "field": "className"
+    },
+    "message": {
+      "$resolver": "exception",
+      "field": "message"
+    },
+    "stacktrace": {
+      "$resolver": "exception",
+      "field": "stackTrace",
+      "stackTrace": {
+        "stringified": true
+      }
+    }
+  },
+  "lineNumber": {
+    "$resolver": "source",
+    "field": "lineNumber"
+  },
+  "class": {
+    "$resolver": "source",
+    "field": "className"
+  },
+  "threadName": {
+    "$resolver": "thread",
+    "field": "name"
+  },
+  "threadId": {
+    "$resolver": "thread",
+    "field": "id"
+  },
+  "level": {
+    "$resolver": "level",
+    "field": "name"
+  },
+  "file": {
+    "$resolver": "source",
+    "field": "fileName"
+  },
+  "methodName": {
+    "$resolver": "source",
+    "field": "methodName"
+  },
+  "loggerName": {
+    "$resolver": "logger",
+    "field": "name"
+  }
+}

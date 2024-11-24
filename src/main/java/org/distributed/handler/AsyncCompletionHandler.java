@@ -31,16 +31,16 @@ public class AsyncCompletionHandler {
         });
 
         completableFuture.whenComplete(
-            (attempt, exception) -> {
-                if (exception != null) {
-                    if (!response.isSuspended())
-                        logger.error("Unreported error {}", request, exception);
-                    if (exception instanceof CompletionException)
-                        response.resume(exception.getCause());
-                    else
-                        response.resume(exception);
-                } else
-                    response.resume(attempt);
-            });
+                (attempt, exception) -> {
+                    if (exception != null) {
+                        if (!response.isSuspended())
+                            logger.error("Unreported error {}", request, exception);
+                        if (exception instanceof CompletionException)
+                            response.resume(exception.getCause());
+                        else
+                            response.resume(exception);
+                    } else
+                        response.resume(attempt);
+                });
     }
 }
