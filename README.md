@@ -49,7 +49,10 @@ After starting all the servers, they should join the same Hazelcast cluster.
 #### Example Request:
 
 ```bash
-GET http://localhost:8081/api/ping
+curl -X GET 'http://localhost:8081/api/ping' \
+      -H 'Accept: application/json' \
+      -H 'Connection: keep-alive' \
+      --compressed
 ```
 
 #### Example Response:
@@ -74,7 +77,10 @@ GET http://localhost:8081/api/ping
 #### Example Request:
 
 ```bash
-PUT http://localhost:8081/api/cache/abc/value/123
+curl -X PUT 'http://localhost:8081/api/cache/abc/value/123' \
+      -H 'Accept: application/json' \
+      -H 'Connection: keep-alive' \
+      --compressed
 ```
 
 #### Example Response:
@@ -108,7 +114,10 @@ If the key already exists, it will return a message stating that the value is al
 #### Example Request:
 
 ```bash
-GET http://localhost:8082/api/cache/abc
+curl -X GET 'http://localhost:8081/api/cache/abc' \
+      -H 'Accept: application/json' \
+      -H 'Connection: keep-alive' \
+      --compressed
 ```
 
 #### Example Response:
